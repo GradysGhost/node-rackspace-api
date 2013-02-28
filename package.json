@@ -1,0 +1,20 @@
+{
+  "name": "rackspace-api",
+  "version": "0.0.0",
+  "description": "A Node.js module to help you interface the Rackspace Cloud API in your code.",
+  "scripts": {
+    "test": "testModule"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ryan@gradysghost.doesntexist.com:~/workspace/rackspace-api"
+  },
+  "keywords": [
+    "rackspace",
+    "cloud",
+    "api"
+  ],
+  "author": "Ryan Jung",
+  "license": "BSD",
+  "readmeFilename": "README.md"
+}
