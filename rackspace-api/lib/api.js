@@ -5,15 +5,12 @@ function _inArray(needle, haystack) {
 	return false;
 }
 
-exports.integer = 42;
-
-exports.Api = function(username, password, authType, authEndpoint, apiEndpoint, uaString) {
+exports.Api = function(username, password, authType, authEndpoint, uaString) {
 	this.https = require('https');
 	this.username = username;
 	this.password = password;
 	this.authType = (authType == "api" ? "api" : "password");
 	this.authEndpoint = (authEndpoint.toLowerCase() == "uk" ? "lon.identity.api.rackspacecloud.com" : "identity.api.rackspacecloud.com");
-	this.apiEndpoint = (_inArray(apiEndpoint.toLowerCase(), ["dfw", "ord", "lon"]) ? apiEndpoint.toLowerCase() : "dfw");
 	this.uaString = (typeof uaString === "string" ? uaString : "Rackspace Cloud API Node.js Library");
 
 	this.authenticate = function(callback) {

@@ -14,6 +14,7 @@
     "cloud",
     "api"
   ],
+  "main": "lib/api.js",
   "author": "Ryan Jung",
   "license": "BSD",
   "readmeFilename": "README.md"
