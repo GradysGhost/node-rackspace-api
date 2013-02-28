@@ -20,8 +20,8 @@ Then get yourself an instance.
 
  * _`username`_ - Your Rackspace Cloud username
  * _`password`_ - Depending on the `authType` value, this should either be your password or API key
- * _`authType`_ - Either "api" or "password"; defaults to "password"
- * _`authEndpoint`_ - Either "us" or "uk"; defaults to "us"
+ * _`authType`_ - Either `"api"` or `"password"`; defaults to `"password"`
+ * _`authEndpoint`_ - Either `"us"` or `"uk"`; defaults to `"us"`
  * _`uaString`_ - Optional, the user agent string to present to the server
 
 This will create a new Api object, which has but one member function at the moment. That is `authenticate`;
