@@ -92,8 +92,6 @@ exports.CloudServerOpenStackEndpoint = function(token, url) {
 		o.path = this.url.pathname + "/flavors/" + id;
 		var content = "";
 
-		console.log(JSON.stringify(o));
-
 		var req = this.https.request(o, function(res) {
 			res.on('data', function(chunk) {
 				content += chunk;
