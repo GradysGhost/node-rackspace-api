@@ -1,17 +1,26 @@
-function _inArray(needle, haystack) {
-	for (var i = 0; i < haystack.length; ++i)
-		if (haystack[i] == needle)
-			return true;
-	return false;
-}
+global._serializeQueryString = function(values) {
+	var qsArr = [];
+	for (var key in values) {
+		qsArr.push(key + "=" + values[key])
+	}
+	return "?" + qsArr.join("&");
+};
 
-exports.Api = function(username, password, authType, authEndpoint, uaString) {
+exports.Api = function(username, password, authType, authEndpoint) {
 	this.https = require('https');
 	this.username = username;
 	this.password = password;
 	this.authType = (authType == "api" ? "api" : "password");
 	this.authEndpoint = (authEndpoint.toLowerCase() == "uk" ? "lon.identity.api.rackspacecloud.com" : "identity.api.rackspacecloud.com");
-	this.uaString = (typeof uaString === "string" ? uaString : "Rackspace Cloud API Node.js Library");
+	this.reqOpts = {
+		hostname: this.authEndpoint,
+		port: 443,
+		path: "/v2.0/tokens",
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		}
+	};
 
 	this.authenticate = function(callback) {
 		if (!this.username) {
@@ -25,7 +34,6 @@ exports.Api = function(username, password, authType, authEndpoint, uaString) {
 			}
 			return ret;
 		} else {
-			// Form API/HTTP request
 			var data = '{"auth":{"';
 			switch (this.authType) {
 				case "password":
@@ -35,26 +43,39 @@ exports.Api = function(username, password, authType, authEndpoint, uaString) {
 					data += 'RAX-KSKEY:apiKeyCredentials":{"username":"' + this.username + '", "apiKey":"' + this.password + '"}}}';
 					break;
 			}
-			var reqOpts = {
-				hostname : this.authEndpoint,
-				port : 443,
-				path : "/v2.0/tokens",
-				method : "POST",
-				headers : {
-					"User-Agent" : this.uaString,
-					"Content-Type" : "application/json",
-					"Content-Length" : data.length
-				}
-			};
-			var req = this.https.request(reqOpts, function(res) {
+
+			var o = this.reqOpts;
+			o.headers["Content-Length"] = data.length;
+
+			var req = this.https.request(o, function(res) {
 				if (res.statusCode == 200) {
 					var content = "";
 					res.on("data", function(chunk) {
 						content += chunk;
 					});
 					res.on("end", function() {
+						var CSOSE = require('./cloudserveropenstackendpoint.js');
 						var jsonContent = JSON.parse(content).access;
-						callback(jsonContent.token, jsonContent.user);
+						var apiObjects = {
+							"cloudServersOpenStack": {}
+						};
+						var serviceObjects = {};
+						for (var i in jsonContent.serviceCatalog) {
+							switch (jsonContent.serviceCatalog[i].name) {
+								case "cloudServersOpenStack":
+									if (!serviceObjects.cloudServersOpenStack)
+										serviceObjects.cloudServersOpenStack = {};
+									for (var j in jsonContent.serviceCatalog[i].endpoints) {
+										serviceObjects.cloudServersOpenStack[jsonContent.serviceCatalog[i].endpoints[j].region] =
+											new CSOSE.CloudServerOpenStackEndpoint(
+												jsonContent.token,
+												jsonContent.serviceCatalog[i].endpoints[j].publicURL
+											);
+									}
+									break;
+							}
+						}
+						callback(jsonContent, serviceObjects);
 					});
 				}
 			});
