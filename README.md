@@ -29,7 +29,7 @@ Then get yourself an instance.
 
 This will create a new `Api` object.
 
-### `Api`
+### Api
 
     api.authenticate(callback)
 
@@ -37,17 +37,35 @@ This will create a new `Api` object.
    * `jsonContent` - The JSON response from the authentication server (see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/auth-response-description.html)
    * `serviceObjects` - An object containing other objects, each one a code object representing a Rackspace Cloud API service endpoint, as described below
 
-### `CloudServerOpenStackEndpoint`
+### CloudServerOpenStackEndpoint
 
-This object gets created internally when calling `Api.authenticate`.
+This object gets created internally when calling `Api.authenticate`. This documentation refers to `params` and `data` values frequently. In all cases, refer to the [Rackspace Cloud Servers API Documentation](http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ch_api_operations.html). `params` always refers to options to be passed along with GET requests in the URL query string. `data` always refers to a stringified JSON object to be passed in the request body.
 
- * `servers (params, callback)` - Gets a list of servers at this endpoint
-   * `callback` - The function to call when the transaction completes. Accepts one argument, `servers`, which is a list of servers.
-   * `params` - Parameters as described in [http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List\_Servers-d1e2078.html](http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List\_Servers-d1e2078.html)
- * `images (params, callback)` - Same as `listServers`, but with images
+Furthermore, `id` variables are often called for. This documentation will list what ID each of those variables needs to be, since it varies, but in all cases, you can get the ID of that object by running the relevant list function. For example, `imageDetails` needs an image ID, which you can gather by calling the `images` function first.
+
+#### images (params, callback)
+
+_Gets a list of images._
+
+callback` is a function that accepts an `images` array.
+
+#### imageDetails (id, callback)
+
+_Retrieves the details of the image specified by `id`._
+
+`id` is the ID of the image.
+
+`callback` is a function that accepts an `image` object.
+
+#### servers (params, callback)
+
+_Gets a list of servers at this endpoint._
+
+`callback` is a function that accepts a `servers` array.
+
+
  * `flavors (params, callback)` - Same as above.
  * `flavorDetails (id, callback)` - Retrieves the details of the flavor specified by `id`. A list of flavor IDs can be retrieved with `listFlavors`.
- * `imageDetails (id, callback)` - Retrieves the details of the image specified by `id`. A list of image IDs can be retrieved with `listImages`.
  * `create (params, data, callback) - Provisions a new server. See valid parameters and data objects [here](http://docs.rackspace.com/servers/api/v2/cs-devguide/content/CreateServers.html).
 
 There is more to come with this, but as stated above, this is still in very early development.
