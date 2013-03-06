@@ -1,5 +1,9 @@
 `rackspace-api` is a Node.js module to help you interface the Rackspace Cloud API in your code.
 
+## Disclaimer
+
+This is an unofficial library, created without Rackspace's official support.
+
 ## How to get it
 
 ### With npm
@@ -47,15 +51,34 @@ Furthermore, `id` variables are often called for. This documentation will list w
 
 _Gets a list of images._
 
-callback` is a function that accepts an `images` array.
+ * `callback` is a function that accepts an `images` array.
 
 #### imageDetails (id, callback)
 
 _Retrieves the details of the image specified by `id`._
 
-`id` is the ID of the image.
+ * `id` is the image ID.
+ * `callback` is a function that accepts an `image` object.
 
-`callback` is a function that accepts an `image` object.
+#### deleteImage (id, callback)
+
+_Deletes the specified image._
+
+ * `id` is the image ID.
+ * `callback` is a function that accepts a `response` object.
+
+#### flavors (params, callback)
+
+_Gets a list of server flavors._
+
+ * `callback` is a function that accepts a `flavors` array.
+
+#### flavorDetails (id, callback)
+
+_Retrieves the details of the flavor specified by `id`._
+
+ * `id` is the flavor ID.
+ * `callback` is a function that accepts a `flavor` object.
 
 #### servers (params, callback)
 
@@ -63,9 +86,121 @@ _Gets a list of servers at this endpoint._
 
 `callback` is a function that accepts a `servers` array.
 
+#### serverDetails (id, callback)
 
- * `flavors (params, callback)` - Same as above.
- * `flavorDetails (id, callback)` - Retrieves the details of the flavor specified by `id`. A list of flavor IDs can be retrieved with `listFlavors`.
- * `create (params, data, callback) - Provisions a new server. See valid parameters and data objects [here](http://docs.rackspace.com/servers/api/v2/cs-devguide/content/CreateServers.html).
+_Retrieves the details of the server specified by `id`._
+
+ * `id` is the server ID.
+ * `callback` is a function that accepts a `server` object.
+
+#### serverIPs (id, network, callback)
+
+_Retrieves a list of IP addresses associated with a server and network interface._
+
+ * `id` is the server ID.
+ * `network` is the network ID.
+
+#### createServer (params, data, callback)
+
+_Provisions a new OpenStack server._
+
+ * `callback` is a function that accepts a `server` object.
+
+#### updateServer (id, params, data, callback)
+
+_Updates a server's properties._
+
+ * `id` is the server ID.
+ * `callback` is a function that accepts a `server` object.
+
+#### deleteServer (id, callback)
+
+_Deletes a server instance._
+
+ * `id` is the server ID.
+ * `callback` is a function that accepts a `response` object.
+
+#### serverAction (id, data, callback)
+
+_Executes an action on the specified server, such as issuing a reboot or updating the admin password._
+
+ * `id` is the server ID.
+ * `callback` is a function that accepts a `response` object.
+
+#### volumes (id, callback)
+
+_Gets a list of the block storage volumes attached to the specified server._
+
+ * `id` is the server ID.
+ * `callback` is a function that accepts a `volumeAttachments` object.
+
+#### volumeDetails (id, attachmentID, callback)
+
+_Retrieves the details for the specified attached volume._
+
+ * `id` is the server ID.
+ * `attachmentID` is the volume attachment ID.
+ * `callback` is a function that accepts a `volumeAttachment` object.
+
+#### attachVolume (id, params, data, callback)
+
+_Attaches a block storage volume to the specified server._
+
+ * `id` is the server ID.
+ * `callback` is a function that accepts a `volumeAttachment` object.
+
+#### detachVolume (id, attachmentId, callback)
+
+_Detaches a block storage volume from the specified server._
+
+ * `id` is the server ID.
+ * `attachmentID` is the volume attachment ID.
+ * `callback` is a function that accepts a `volumeAttachment` object.
+
+#### metadata (id, data, callback)
+
+_Gets a list of all metadata items for the specified server._
+
+ * `id` is the server ID.
+ * `callback` is a function that accepts a `metadata` object.
+
+#### setMetadata (id, data, callback)
+
+_Sets a metadata item on the specified server._
+
+ * `id` is the server ID.
+ * `callback` is a function that accepts a `metadata` object.
+
+#### updateMetadata (id, data, callback)
+
+_Updates a metadata item on the specified server._
+
+ * `id` is the server ID.
+ * `callback` is a function that accepts a `metadata` object.
+
+#### getMetadataItem (id, key, callback)
+
+_Retrieves a specific metadata item for the specified server._
+
+ * `id` is the server ID.
+ * `key` is the metadata key whose value should be retrieved.
+ * `callback` is a function that accepts a `metadata` object.
+
+#### setMetadataItem (id, key, callback)
+
+_Sets a specific metadata item for the specified server._
+
+ * `id` is the server ID.
+ * `key` is the metadata key whose value should be set.
+ * `callback` is a function that accepts a `metadata` object.
+
+
+#### deleteMetadataItem (id, key, callback)
+
+_Deletes a specific metadata item from the specified server._
+
+ * `id` is the server ID.
+ * `key` is the metadata key whose value should be deleted.
+ * `callback` is a function that accepts a `metadata` object.
 
 There is more to come with this, but as stated above, this is still in very early development.
