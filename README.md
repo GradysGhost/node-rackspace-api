@@ -100,7 +100,7 @@ _Retrieves a list of IP addresses associated with a server and network interface
  * `id` is the server ID.
  * `network` is the network ID.
 
-#### createServer (params, data, callback)
+#### createServer (data, callback)
 
 _Provisions a new OpenStack server._
 
