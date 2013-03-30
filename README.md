@@ -284,5 +284,112 @@ _Enables CDN availability on the container called `container`_
 
 _Disabled CDN availability on `container`_
 
+### CloudDNSEndpoint
+
+This exposes the Cloud DNS API.
+
+For valid options to the `params` and `data` objects in the following examples, refer to [the documentation](http://docs.rackspace.com/cdns/api/v1.0/cdns-devguide/content/API_Operations-d1e2264.html), please.
+
+#### limits (callback)
+
+_Retrieves limits placed on your Cloud DNS account_
+
+#### limitTypes (callback)
+
+_Retrieves info about different types of limits on your account_
+
+#### getLimit (limit, callback)
+
+_Returns the value of the limit called `limit`_
+
+#### domains (params, callback)
+
+_Gets a list of all of your domains_
+
+#### domainDetails (domainId, params, callback)
+
+_Shows details about the domain with an id (not a domain anme) of `domainId`_
+
+#### domainChanges (domainId, params, callback)
+
+_Lists changes made to the domain with id `domainId`_
+
+ * It's worth looking at the documentation to learn about the `since` parameter for this. [(Reference)](http://docs.rackspace.com/cdns/api/v1.0/cdns-devguide/content/List_Domain_Changes.html)
+
+#### exportDomain (domainId, callback)
+
+_Begins the process of exporting a domain. This produces a Job ID, which you can use to check the status of this asynchronous request._
+
+#### jobStatus (jobId, params, callback)
+
+_Retrieves the status of a job. When the `param` key called `showDetails` is `'true'` and the status is `'COMPLETED'`, it returns the request response as well._
+
+#### createDomain (data, callback)
+
+_Creates the domain(s) specified in `data`_
+
+#### importDomain (data, callback)
+
+_Imports the domain from a BIND 9 file, previously exported with `exportDomain`_
+
+#### modifyDomain (domainId, data, callback)
+
+_Uses the object in `data` to modify a stored domain (or multiple domains)_
+
+ * If `domainId` is `null`, the request is processed as a multi-domain edit. Otherwise, specify the Domain ID of the one you wish to modify.
+
+#### removeDomain (domainId, params, callback)
+
+_Removes a domain from your Cloud DNS account_
+
+#### subdomains (domainId, params, callback)
+
+_Lists all subdomains of the domain with ID `domainId`_
+
+#### records (domainId, params, callback)
+
+_Gets a list of all records in the domain specified by `domainId`_
+
+#### recordDetails (domainId, recordId, params, callback)
+
+_Shows the details of the record specified by `recordId`, and which belongs to the domain with ID `domainId`_
+
+#### addRecord (domainId, data, params, callback)
+
+_Adds a record (or some) defined in `data` to the domain with ID `domainId`_
+
+#### modifyRecord (domainId, recordId, data, callback)
+
+_Modifies a record with ID `recordId` in domain with ID `domainId`, as defined by `data`_
+
+#### removeRecord (domainId, recordId, params, callback)
+
+_Deletes the record specified_
+
+#### ptrs (service, params, callback)
+
+_Lists PTR records on your account_
+
+_*In the case all five of these PTR functions, the followng two statements are true:*_
+
+ * `service` is a service name like `'cloudServersOpenStack'`
+ * `params` here needs an `'href'` key with a service URL. [See the API docs.](http://docs.rackspace.com/cdns/api/v1.0/cdns-devguide/content/ReverseDNS-123457000.html)
+
+#### ptrDetails (service, recordId, params, callback)
+
+_Shows the details of a PTR record_
+
+#### addPtr (data, callback)
+
+_Adds a PTR record as defined in `data`_
+
+#### modifyPtr (data, callback)
+
+_Modifies an existing PTR record in a manner described in `data`_
+
+#### removePtr (service, params, callback)
+
+_Deletes a PTR record from the specified `service`_
+
 ## Work In Progress
 There is more to come with this, but as stated above, this is still in very early development.
