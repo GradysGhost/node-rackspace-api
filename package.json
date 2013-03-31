@@ -1,6 +1,6 @@
 {
   "name": "rackspace-api",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A Node.js module to help you interface the Rackspace Cloud API in your code.",
   "contributors" : [
     {
