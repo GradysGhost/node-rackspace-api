@@ -391,5 +391,17 @@ _Modifies an existing PTR record in a manner described in `data`_
 
 _Deletes a PTR record from the specified `service`_
 
+### CloudLoadBalancersEndpoint
+
+This object works with Cloud Load Balancers, naturally.
+
+Many of the functions in this library allow you specify more than one object at a time in the URL by passing a repeated `id` parameter. For context, see the documentation. One example of this can be found in the [Remove Metadata documentation](http://docs.rackspace.com/loadbalancers/api/v1.0/clb-devguide/content/Remove_Metadata-d1e2675.html), where you can specify multiple metadata IDs. The functions bound to API calls like this (`deleteMetadata`, in this example) are capable of handling this for you, but also for just specifying a single ID. See the documentation below to see how to work with each case of this.
+
+In all cases, `lbId`, `nodeId`, and `metaId` are the IDs of the load balancer, node, and metadata item to affect. `data` is an object, the details of which you should verify in the [Load Balancer API Documentation](http://docs.rackspace.com/loadbalancers/api/v1.0/clb-devguide/content/Overview-d1e82.html). `params` is an object which will be converted to a query string for the request.
+
+#### loadBalancers (callback)
+
+_Lists all load balancers on the account_
+
 ## Work In Progress
 There is more to come with this, but as stated above, this is still in very early development.
