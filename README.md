@@ -403,5 +403,226 @@ In all cases, `lbId`, `nodeId`, and `metaId` are the IDs of the load balancer, n
 
 _Lists all load balancers on the account_
 
+#### loadBalancerDetails (lbId, callback)
+
+_Gets the details of the specified load balancer._
+
+#### createLoadBalancer (data, callback)
+
+_Creates the load balancer defined by `data`_
+
+#### updateLoadBalancer (lbId, data, callback)
+
+_Updates the configuration of a load balancer_
+
+#### deleteLoadBalancer (lbId, callback)
+
+_Deletes the specified load balancer_
+
+#### errorPage (lbId, callback)
+
+_Retrieves the contents of the load balancer's error page_
+
+#### setErrorPage (lbId, content, callback)
+
+_Sets the contents of the load balancer's error page to `content`_
+
+#### deleteErrorPage (lbId, callback)
+
+_Removes the error page configuration from the load balancer_
+
+#### stats (lbId, callback)
+
+_Lists load balancer statistics_
+
+#### nodes (lbId, callback)
+
+_Lists nodes behind the load balancer_
+
+#### nodeDetails (lbId, nodeId, callback)
+
+_Gets a node's configuration_
+
+#### addNode (lbId, data, callback)
+
+_Adds a node to the load balancer, as described by `data`_
+
+#### deleteNode (lbId, nodeId, params, callback)
+
+_Removes a node from the load balancer configuration. Has no effect on any Cloud Servers the node may represent._
+
+#### serviceEvents (lbId, callback)
+
+_Retrieves a log of events that have occurred on all nodes_
+
+#### ips (lbId, callback)
+
+_Lists all IP addresses associated with the load balancer_
+
+#### allowedDomains (callback)
+
+_Lists domains allowed access to the load balancer_
+
+#### addIp (lbId, isPublic, callback)
+
+_Adds the IP that `data` describes to the load balancer. Note that this will always produce an IPv6 address._
+
+ * `isPublic` - When `true`, the IP is Internet-facing. Otherwise, it's a ServiceNet IP.
+
+#### deleteIp (lbId, ipId, params, callback)
+
+_Deletes the specified IP address from the specified load balancer._
+
+#### billableLoadBalancers (params, callback)
+
+_Gets a list of load balancers in a billable state_
+
+#### accountUsage (params, callback)
+
+_Reports overall load balancer usage_
+
+#### historialLoadBalancerUsage (lbId, params, callback)
+
+_Reports usage of a load balancer over time. Use `params` to control time range._
+
+#### currentLoadBalancerUsage (lbId, params, callback)
+
+_Reports current usage of a load balancer_
+
+#### accessList (lbId, callback)
+
+_Returns the load balancer's access list_
+
+#### addNetworkItem (lbId, data, callback)
+
+_Adds a network item to the load balancer's access list_
+
+#### deleteNetworkItem (lbId, netItemId, callback)
+
+_Removes a network item defined by `netItemId` from the load balancer's access list_
+
+#### deleteAccessList (lbId, params, callback)
+
+_Completely deletes the full access list from the load balancer_
+
+#### healthMonitor (lbId, callback)
+
+_Gets the details of the load balancer's health monitor configuration_
+
+#### updateHealthMonitor (lbId, data, callback)
+
+_Updates the load balancer's health monitor configuration as described by `data`_
+
+#### deleteHealthMonitor (lbId, callback)
+
+_Clears the health monitor config from a load balancer_
+
+#### sessionPersistence (lbId, callback)
+
+_Retrieves the session persistence configuration for the load balancer_
+
+#### enableSessionPersistence (lbId, callback)
+
+_Turns on session persistence_
+
+#### disableSessionPersistence (lbId, callback)
+
+_Turns off session persistence_
+
+#### connectionLogging (lbId, callback)
+
+_Gets the connection logging status_
+
+#### setConnectionLogging (lbId, enabled, callback)
+
+_Enables or disables connection logging_
+
+ * `enabled` - `true` or `false` to enable or disable connection logging
+
+#### throttle (lbId, callback)
+
+_Gets the throttling config_
+
+#### updateThrottle (lbId, data, callback)
+
+_Sets the throttling config_
+
+#### deleteThrottle (lbId, callback)
+
+_Removes all throttling configuration_
+
+#### contentCaching (lbId, callback)
+
+_Retrieves the caching config_
+
+#### setContentCaching (lbId, enabled, callback)
+
+_Enables or disables content caching_
+
+ * `enabled` - `true` or `false` to enable or disable connection logging
+
+#### protocols (callback)
+
+_Shows protocols supported by load balancers_
+
+#### algorithms (callback)
+
+_Shows algorithms supported by load balancers_
+
+#### termination (lbId, callback)
+
+_Gets the SSL termination configuration_
+
+#### updateTermination (lbId, data, callback)
+
+_Sets the SSL termination config to what's described in `data`_
+
+#### metadata (lbId, metaId, nodeId, callback)
+
+_Retrieves metadata associated with the specified resource(s)._
+
+This function can get metadata for a single load balancer or node, or multiple load balancers or nodes. Here's a list of things you can do and how to do it, but you should refer to the [documentation](http://docs.rackspace.com/loadbalancers/api/v1.0/clb-devguide/content/List_Metadata-d1e2218.html) to understand the hows and whys:
+
+_Retrieve metadata for a single load balancer with ID `42`:_
+
+    metadata('42', null, null, function(){});
+
+_Get details for a specific load balancer metadata object:_
+
+    metadata('41', '2', null, function(){});
+
+_Get a list of metadata objects associated with a particular node behind a load balancer:_
+
+    metadata('41', null, '3', function(){});
+
+_Get details for a specific node's metadata object_
+
+    metadata('41', '2', '3', function(){});
+
+#### addMetadata (lbId, nodeId, data, callback)
+
+_Adds metadata from `data` to a load balancer or a node behind one_
+
+To add metadata to a load balancer, set `nodeId` to `null`. To add it to a node, specify both a `lbId` and `nodeId`.
+
+#### updateMetadata (lbId, metaId, nodeId, data, callback)
+
+_Updates the metadata on a load balancer or node_
+
+To update a load balancer's metadata, set `nodeId` to `null`. To update a node's metadata, provide a `nodeId`. To specify which metadata object, also supply a `metaId`.
+
+#### deleteMetadata (lbId, metaId, nodeId, params, callback)
+
+_Deletes metadata associated with a load balancer or node_
+
+ * To delete a single metadata object from a load balancer, provide a `metaId`, but leave `nodeId` set to `null`.
+ * To delete a single object from a node, provide both a `metaId` and a `nodeId`.
+ * To delete multiple metadata objects from a load balancer, set `metaId` and `nodeId` to `null`. Also stick an array called `id` in `params` like in the example below.
+ * To delete multiple objects from a node, provide a `nodeId`, but a `null` `metaId`. Put an array called `id` in `params` like in the example below.
+
+The following example shows how to delete multiple metadata objects from a load balancer at once:
+
+    deleteMetadata('42', null, null, {'id':[metaId1, metaId2, metaIdN]}, function(){});
+
 ## Work In Progress
 There is more to come with this, but as stated above, this is still in very early development.
